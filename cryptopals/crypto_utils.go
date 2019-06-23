@@ -1,7 +1,6 @@
 package main
 
 import (
-    "fmt"
     "encoding/hex"
     "encoding/base64"
 )
@@ -32,13 +31,4 @@ func StrHexToBase64(strHex string) (string, error) {
     }
     base64dst := BinHexToBase64(binHex)
     return string(base64dst), nil
-}
-
-
-func main() {
-    hex_input := "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
-    // base64Expected := "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t"
-
-    base64Real, _ := StrHexToBase64(hex_input)
-    fmt.Println(base64Real)
 }
