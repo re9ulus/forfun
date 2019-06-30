@@ -1,5 +1,5 @@
 [package]
-name = "r9-cryptopals"
+name = "r9cryptopals"
 version = "0.1.0"
 authors = ["r9 <angeldaren@gmail.com>"]
 edition = "2018"
