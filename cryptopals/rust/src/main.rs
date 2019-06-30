@@ -3,15 +3,7 @@ extern crate hex;
 use std::str;
 
 mod s1t1;
-
-
-fn xor_binary(bytes1: &[u8], bytes2: &[u8]) -> Vec<u8> {
-    let mut res = vec![0; bytes1.len()];
-    for idx in 0..bytes1.len() {
-        res[idx] = bytes1[idx] ^ bytes2[idx];
-    }
-    return res;
-}
+mod utils;
 
 
 // Fixed xor
@@ -20,7 +12,7 @@ fn task2(is_verbose: bool) {
     let hex2: &'static str = "686974207468652062756c6c277320657965";
     let expected: &'static str = "746865206b696420646f6e277420706c6179";
 
-    let actual_bytes = xor_binary(
+    let actual_bytes = utils::xor_bytes(
         &hex::decode(&hex1).unwrap(),
         &hex::decode(&hex2).unwrap()
     );
