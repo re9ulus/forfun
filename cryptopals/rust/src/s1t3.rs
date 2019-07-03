@@ -4,6 +4,8 @@ use std::fs;
 use crate::utils;
 
 
+type Vocab = HashMap<char, usize>;
+type Descriptor = Vec<usize>;
 // Create descriptor class/typedef?
 
 // TODO: Read file, create descriptor, compare with encoded line descriptor
@@ -23,17 +25,17 @@ use crate::utils;
 // }
 // 
 // 
-// // TODO: Build vector-descriptor for str
-// fn buildDescriptor(line &str) -> Vec<u8> {
-// 
-// }
-// 
-// 
-// fn buildTextDescriptor(lines Vec<str>) Vec<u8> {
-// 
-// }
+fn buildDescriptor(line: &str, vocab: &Vocab) -> Descriptor { 
+    let mut descriptor: Descriptor = vec![0; vocab.len()];
+    for ch in line.chars() {
+        if vocab.contains_key(&ch) {
+            descriptor[vocab[&ch]] += 1;
+        }
+    }
+    return descriptor;
+}
 
-fn build_vocab(text: &str) -> (HashMap<char, i32>, i32) {
+fn buildVocab(text: &str) -> Vocab {
     let mut vocab = HashMap::new();
     let mut vocab_size = 0;
     for ch in text.chars() {
@@ -42,14 +44,22 @@ fn build_vocab(text: &str) -> (HashMap<char, i32>, i32) {
             vocab_size += 1;
         }
     }
-    return (vocab, vocab_size);
+    return vocab;
 }
 
 
-fn print_vocab(vocab: &HashMap<char, i32>) {
+fn printVocab(vocab: &Vocab) {
     for (key, val) in vocab {
         println!("{} {}", key, val);
     }
+}
+
+
+fn printDescriptor(descriptor: &Descriptor) {
+    for val in descriptor {
+        print!("{} ", val);
+    }
+    println!()
 }
 
 
@@ -60,9 +70,16 @@ pub fn solution(is_verbose: bool) {
 
     let text = fs::read_to_string("/home/r9/dev/forfun/cryptopals/rust/data/dracula.txt").unwrap();
 
-    let (vocab, vocab_size) = build_vocab(&text);
-    print_vocab(&vocab);
+    let vocab = buildVocab(&text);
+    printVocab(&vocab);
+    let lang_descriptor = buildDescriptor(&text, &vocab);
+    printDescriptor(&lang_descriptor);
 
+    for ch in "abcdefghijklmnopqrstuvwxyzABCDEFGIJKLMNOPQRSTUVWXYZ".chars() {
+        // TODO: Xor with encoded_hex, convert to string, build descriptor, compute similliarity
+        // with lang_descriptor (cos dist)
+
+    }
     println!("Done");
 }
 
