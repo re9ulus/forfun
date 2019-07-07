@@ -25,7 +25,7 @@ type Descriptor = Vec<usize>;
 // }
 // 
 // 
-fn buildDescriptor(line: &str, vocab: &Vocab) -> Descriptor { 
+fn build_descriptor(line: &str, vocab: &Vocab) -> Descriptor { 
     let mut descriptor: Descriptor = vec![0; vocab.len()];
     for ch in line.chars() {
         if vocab.contains_key(&ch) {
@@ -35,7 +35,7 @@ fn buildDescriptor(line: &str, vocab: &Vocab) -> Descriptor {
     return descriptor;
 }
 
-fn buildVocab(text: &str) -> Vocab {
+fn build_vocab(text: &str) -> Vocab {
     let mut vocab = HashMap::new();
     let mut vocab_size = 0;
     for ch in text.chars() {
@@ -48,14 +48,14 @@ fn buildVocab(text: &str) -> Vocab {
 }
 
 
-fn printVocab(vocab: &Vocab) {
+fn print_vocab(vocab: &Vocab) {
     for (key, val) in vocab {
         println!("{} {}", key, val);
     }
 }
 
 
-fn printDescriptor(descriptor: &Descriptor) {
+fn print_descriptor(descriptor: &Descriptor) {
     for val in descriptor {
         print!("{} ", val);
     }
@@ -67,13 +67,12 @@ fn printDescriptor(descriptor: &Descriptor) {
 pub fn solution(is_verbose: bool) {
     let encoded_hex: &'static str = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
 
-
     let text = fs::read_to_string("/home/r9/dev/forfun/cryptopals/rust/data/dracula.txt").unwrap();
 
-    let vocab = buildVocab(&text);
-    printVocab(&vocab);
-    let lang_descriptor = buildDescriptor(&text, &vocab);
-    printDescriptor(&lang_descriptor);
+    let vocab = build_vocab(&text);
+    print_vocab(&vocab);
+    let lang_descriptor = build_descriptor(&text, &vocab);
+    print_descriptor(&lang_descriptor);
 
     for ch in "abcdefghijklmnopqrstuvwxyzABCDEFGIJKLMNOPQRSTUVWXYZ".chars() {
         // TODO: Xor with encoded_hex, convert to string, build descriptor, compute similliarity
