@@ -37,6 +37,6 @@ pub fn solution(is_verbose: bool) {
     }
     assert_eq!(best_candidate, "Now that the party is jumping\n");
     if is_verbose {
-        println!("Task 4: {} `{}`", best_similiarity, best_candidate);
+        println!("Task 4 ans: Msg: `{}`; Similiarity: {}", best_candidate, best_similiarity);
     }
 }
