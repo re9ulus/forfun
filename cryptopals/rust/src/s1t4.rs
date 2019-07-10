@@ -20,7 +20,6 @@ pub fn solution(is_verbose: bool) {
         if line.is_empty() {
             continue;
         }
-        println!("Line is {}", line);
         let binary_line = hex::decode(&line).unwrap();
         for ch in "abcdefghijklmnopqrstuvwxyzABCDEFGIJKLMNOPQRSTUVWXYZ1234567890".as_bytes() {
             let candidate = utils::xor_with_char(&binary_line, ch);
@@ -30,12 +29,14 @@ pub fn solution(is_verbose: bool) {
             }
             let candidate_descriptor = utils::build_descriptor(&str_repr, &vocab);
             let similiarity = utils::cosine_distance(&lang_descriptor, &candidate_descriptor);
-            // println!("{} {}", similiarity, str_repr);
             if best_similiarity < similiarity {
                 best_similiarity = similiarity;
                 best_candidate = str_repr;
             }
         }
     }
-    println!("BEST: {} {}", best_similiarity, best_candidate);
+    assert_eq!(best_candidate, "Now that the party is jumping\n");
+    if is_verbose {
+        println!("Task 4: {} `{}`", best_similiarity, best_candidate);
+    }
 }
